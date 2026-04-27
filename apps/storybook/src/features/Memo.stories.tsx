@@ -6,10 +6,10 @@ import {
   type FeatureStoryArgs,
 } from './_helpers';
 
-const FEATURE_NAME = 'Aggregation' as const;
+const FEATURE_NAME = 'Memo' as const;
 
 const meta: Meta<FeatureStoryArgs> = {
-  title: 'Features/Aggregation',
+  title: 'Features/Memo',
   argTypes: featureStoryArgTypes,
   args: defaultFeatureStoryArgs,
 };

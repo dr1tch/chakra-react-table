@@ -52,6 +52,8 @@ export const useChakraReactTable = <TData extends CRT_RowData>(
   const sortedModel = getSortedRowModel ?? resolved.getSortedRowModel;
 
   return useReactTable({
+    columnResizeDirection: options.columnResizeDirection ?? 'ltr',
+    columnResizeMode: options.columnResizeMode ?? 'onChange',
     ...rest,
     getCoreRowModel: getCoreRowModel(),
     ...(filteredModel ? { getFilteredRowModel: filteredModel } : {}),

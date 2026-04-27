@@ -1,5 +1,10 @@
 export { ColumnControlsPanel } from './ColumnControlsPanel';
+export { ColumnActionMenu } from './ColumnActionMenu';
+export { ColumnResizeHandle } from './ColumnResizeHandle';
 export { CopyCellAction } from './CopyCellAction';
+export { CreateRowPanel } from './CreateRowPanel';
+export { getCellKey, isCellPrimitiveEditable, toCopyText } from './cellValue';
+export { getPinnedColumnStyles } from './pinningStyles';
 export { SelectionCheckbox } from './SelectionCheckbox';
 export { SortIndicator } from './SortIndicator';
 export { TableBodyRow } from './TableBodyRow';

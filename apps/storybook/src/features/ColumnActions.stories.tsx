@@ -1,8 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FeatureStoryTable } from './_helpers';
+import {
+  FeatureStoryTable,
+  defaultFeatureStoryArgs,
+  featureStoryArgTypes,
+  type FeatureStoryArgs,
+} from './_helpers';
 
-const meta: Meta = {
+const FEATURE_NAME = 'ColumnActions' as const;
+
+const meta: Meta<FeatureStoryArgs> = {
   title: 'Features/ColumnActions',
+  argTypes: featureStoryArgTypes,
+  args: defaultFeatureStoryArgs,
 };
 
 export default meta;
@@ -10,5 +19,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  render: () => <FeatureStoryTable featureName="ColumnActions" />,
+  render: (args) => <FeatureStoryTable featureName={FEATURE_NAME} storyArgs={args} />,
 };

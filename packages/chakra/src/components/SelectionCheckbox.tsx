@@ -19,11 +19,11 @@ export const SelectionCheckbox = ({
     aria-label={ariaLabel}
     checked={checked}
     disabled={disabled}
+    mt="0.5"
     onCheckedChange={(details) => onCheckedChange(details.checked === true)}
+    size="sm"
   >
     <Checkbox.HiddenInput />
-    <Checkbox.Control>
-      <Checkbox.Indicator />
-    </Checkbox.Control>
+    <Checkbox.Control />
   </Checkbox.Root>
 );

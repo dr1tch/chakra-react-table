@@ -87,6 +87,9 @@ importers:
       chakra-react-table:
         specifier: workspace:*
         version: link:../../packages/chakra
+      lucide-react:
+        specifier: ^0.542.0
+        version: 0.542.0(react@19.2.5)
       react:
         specifier: ^19.2.5
         version: 19.2.5

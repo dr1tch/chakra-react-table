@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { Button } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
@@ -20,8 +21,13 @@ const data: Person[] = Array.from({ length: 30 }, () => ({
 const Example = () => {
   const columns = useMemo<CRT_ColumnDef<Person>[]>(
     () => [
-      { accessorKey: 'firstName', header: 'First name' },
-      { accessorKey: 'lastName', header: 'Last name' },
+      {
+        header: 'Name',
+        columns: [
+          { accessorKey: 'firstName', header: 'First name' },
+          { accessorKey: 'lastName', header: 'Last name' },
+        ],
+      },
       { accessorKey: 'age', header: 'Age' },
     ],
     [],
@@ -31,8 +37,10 @@ const Example = () => {
     columns,
     data,
     enableColumnOrdering: true,
+    enableColumnPinning: true,
     enableRowSelection: true,
     initialState: {
+      columnPinning: { left: ['firstName'], right: ['age'] },
       pagination: {
         pageIndex: 0,
         pageSize: 8,
@@ -42,9 +50,15 @@ const Example = () => {
 
   return (
     <ChakraReactTable
+      caption="Chakra React Table - grouped headers, sticky header, sticky columns, selection action bar"
       enableColumnOrderingControls
       enableColumnVisibilityToggle
       enableRowSelection
+      renderActionBar={({ selectedRows }) => (
+        <Button size="xs" variant="solid">
+          Export {selectedRows.length}
+        </Button>
+      )}
       table={table}
     />
   );
