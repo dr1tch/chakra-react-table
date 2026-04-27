@@ -1,0 +1,28 @@
+{
+  "name": "chakra-react-table-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.18.0",
+  "scripts": {
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "dev:docs": "pnpm -C apps/docs dev",
+    "build:docs": "pnpm -C apps/docs build",
+    "dev:storybook": "pnpm -C apps/storybook storybook",
+    "build:storybook": "pnpm -C apps/storybook build-storybook",
+    "release:version": "changeset version",
+    "release:publish": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "turbo": "^2.9.6",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.10",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.1.5"
+  }
+}

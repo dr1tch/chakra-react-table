@@ -1,0 +1,9 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/chakra" },
+    { "path": "./packages/utils" },
+    { "path": "./packages/icons" }
+  ]
+}

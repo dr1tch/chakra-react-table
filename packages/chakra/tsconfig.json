@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "..",
+    "outDir": "dist",
+    "paths": {
+      "@chakra-react-table/core": ["../core/src/index.ts"],
+      "@chakra-react-table/core/*": ["../core/src/*"]
+    }
+  },
+  "include": ["src"]
+}

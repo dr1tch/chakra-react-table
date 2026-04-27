@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "chakra-react-table": ["../../packages/chakra/src/index.ts"],
+      "@chakra-react-table/core": ["../../packages/core/src/index.ts"]
+    }
+  },
+  "include": ["src", ".storybook"]
+}

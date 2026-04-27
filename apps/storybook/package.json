@@ -1,0 +1,25 @@
+{
+  "name": "@chakra-react-table/storybook",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^3.35.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@tanstack/react-table": "^8.21.3",
+    "chakra-react-table": "workspace:*",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@storybook/react-vite": "^10.3.5",
+    "@storybook/react": "^10.3.5",
+    "storybook": "^10.3.5",
+    "typescript": "^6.0.3"
+  }
+}
