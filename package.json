@@ -7,6 +7,8 @@
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
+    "storybook": "turbo run storybook --filter=@chakra-react-table/storybook",
+    "build:storybook:turbo": "turbo run build-storybook --filter=@chakra-react-table/storybook",
     "dev:docs": "pnpm -C apps/docs dev",
     "build:docs": "pnpm -C apps/docs build",
     "dev:storybook": "pnpm -C apps/storybook storybook",

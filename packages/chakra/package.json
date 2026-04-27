@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@chakra-react-table/core": "workspace:*",
+    "@chakra-react-table/icons": "workspace:*",
     "@tanstack/react-table": "^8.21.3"
   }
 }

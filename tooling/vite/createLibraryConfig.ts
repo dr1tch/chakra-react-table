@@ -16,12 +16,13 @@ export const createLibraryConfig = ({
         entryRoot: 'src',
         include: ['src'],
         insertTypesEntry: true,
-        rollupTypes: true,
+        rollupTypes: false,
       }),
     ],
     build: {
       lib: {
         entry,
+        fileName: (format) => (format === 'es' ? 'index.js' : 'index.cjs'),
         formats: ['es', 'cjs'],
       },
       sourcemap: true,

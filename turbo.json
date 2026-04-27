@@ -5,6 +5,15 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "storybook": {
+      "dependsOn": [],
+      "cache": false,
+      "outputs": []
+    },
+    "build-storybook": {
+      "dependsOn": ["^build"],
+      "outputs": ["storybook-static/**", "apps/storybook/storybook-static/**"]
+    },
     "typecheck": {
       "dependsOn": ["^typecheck"],
       "outputs": []

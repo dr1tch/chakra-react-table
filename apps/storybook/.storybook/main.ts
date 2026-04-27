@@ -23,6 +23,10 @@ const config: StorybookConfig = {
         __dirname,
         '../../../packages/core/src/index.ts',
       ),
+      '@chakra-react-table/icons': resolve(
+        __dirname,
+        '../../../packages/icons/src/index.tsx',
+      ),
     };
     return config;
   },

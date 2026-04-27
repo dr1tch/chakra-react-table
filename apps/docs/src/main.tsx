@@ -1,14 +1,22 @@
+import { faker } from '@faker-js/faker';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import { StrictMode, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ChakraReactTable, useChakraReactTable, type CRT_ColumnDef } from 'chakra-react-table';
+import {
+  ChakraReactTable,
+  useChakraReactTable,
+  type CRT_ColumnDef,
+} from 'chakra-react-table';
 
 type Person = { firstName: string; lastName: string; age: number };
 
-const data: Person[] = [
-  { firstName: 'Ada', lastName: 'Lovelace', age: 36 },
-  { firstName: 'Grace', lastName: 'Hopper', age: 85 },
-];
+faker.seed(42);
+
+const data: Person[] = Array.from({ length: 40 }, () => ({
+  firstName: faker.person.firstName(),
+  lastName: faker.person.lastName(),
+  age: faker.number.int({ min: 18, max: 90 }),
+}));
 
 function App() {
   const columns = useMemo<CRT_ColumnDef<Person>[]>(
@@ -23,9 +31,24 @@ function App() {
   const table = useChakraReactTable({
     columns,
     data,
+    enableColumnOrdering: true,
+    enableRowSelection: true,
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 8,
+      },
+    },
   });
 
-  return <ChakraReactTable table={table} />;
+  return (
+    <ChakraReactTable
+      enableColumnOrderingControls
+      enableColumnVisibilityToggle
+      enableRowSelection
+      table={table}
+    />
+  );
 }
 
 createRoot(document.getElementById('root')!).render(

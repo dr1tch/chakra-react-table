@@ -1,14 +1,21 @@
+import { faker } from '@faker-js/faker';
 import { useMemo } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ChakraReactTable, useChakraReactTable, type CRT_ColumnDef } from 'chakra-react-table';
+import {
+  ChakraReactTable,
+  useChakraReactTable,
+  type CRT_ColumnDef,
+} from 'chakra-react-table';
 
 type Person = { firstName: string; lastName: string; age: number };
 
-const data: Person[] = [
-  { firstName: 'Ada', lastName: 'Lovelace', age: 36 },
-  { firstName: 'Grace', lastName: 'Hopper', age: 85 },
-  { firstName: 'Edsger', lastName: 'Dijkstra', age: 72 },
-];
+faker.seed(7);
+
+const data: Person[] = Array.from({ length: 30 }, () => ({
+  firstName: faker.person.firstName(),
+  lastName: faker.person.lastName(),
+  age: faker.number.int({ min: 18, max: 90 }),
+}));
 
 const Example = () => {
   const columns = useMemo<CRT_ColumnDef<Person>[]>(
@@ -20,8 +27,27 @@ const Example = () => {
     [],
   );
 
-  const table = useChakraReactTable({ columns, data });
-  return <ChakraReactTable table={table} />;
+  const table = useChakraReactTable({
+    columns,
+    data,
+    enableColumnOrdering: true,
+    enableRowSelection: true,
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 8,
+      },
+    },
+  });
+
+  return (
+    <ChakraReactTable
+      enableColumnOrderingControls
+      enableColumnVisibilityToggle
+      enableRowSelection
+      table={table}
+    />
+  );
 };
 
 const meta = {

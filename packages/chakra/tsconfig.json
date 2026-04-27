@@ -6,7 +6,9 @@
     "outDir": "dist",
     "paths": {
       "@chakra-react-table/core": ["../core/src/index.ts"],
-      "@chakra-react-table/core/*": ["../core/src/*"]
+      "@chakra-react-table/core/*": ["../core/src/*"],
+      "@chakra-react-table/icons": ["../icons/src/index.tsx"],
+      "@chakra-react-table/icons/*": ["../icons/src/*"]
     }
   },
   "include": ["src"]
