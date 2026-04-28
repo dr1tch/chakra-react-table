@@ -27,5 +27,6 @@
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",
     "@tanstack/react-virtual": "^3.13.24"
-  }
+  },
+  "private": true
 }

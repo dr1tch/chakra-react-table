@@ -2,7 +2,7 @@ import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { Box, Button, IconButton, TableColumnHeader, TableRow } from '@chakra-ui/react';
 import { flexRender } from '@tanstack/react-table';
 import type { Header, HeaderGroup } from '@tanstack/react-table';
-import type { CRT_RowData } from '@chakra-react-table/core';
+import type { CRT_RowData } from '../coreApi';
 import { ChevronsDown, ChevronsRight, GripVertical, Pin, PinOff } from 'lucide-react';
 import { ColumnActionMenu } from './ColumnActionMenu';
 import { ColumnResizeHandle } from './ColumnResizeHandle';

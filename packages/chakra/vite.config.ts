@@ -3,5 +3,5 @@ import { createLibraryConfig } from '../../tooling/vite/createLibraryConfig';
 
 export default createLibraryConfig({
   entry: resolve(__dirname, 'src/index.ts'),
-  externals: ['react', 'react-dom', '@chakra-ui/react', '@tanstack/react-table', '@chakra-react-table/core'],
+  externals: ['react', 'react-dom', '@chakra-ui/react', '@tanstack/react-table'],
 });

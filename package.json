@@ -2,7 +2,7 @@
   "name": "chakra-react-table-monorepo",
   "private": true,
   "version": "0.1.0",
-  "packageManager": "pnpm@10.18.0",
+  "packageManager": "pnpm@10.33.2",
   "scripts": {
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
@@ -13,8 +13,14 @@
     "build:docs": "pnpm -C apps/docs build",
     "dev:storybook": "pnpm -C apps/storybook storybook",
     "build:storybook": "pnpm -C apps/storybook build-storybook",
+    "changeset": "changeset",
     "release:version": "changeset version",
-    "release:publish": "changeset publish"
+    "release:publish": "changeset publish",
+    "release:local": "bash ./scripts/release-local.sh",
+    "release:local:force": "NO_GIT_CHECKS=1 bash ./scripts/release-local.sh",
+    "release:auto": "bash ./scripts/release-auto.sh",
+    "release:auto:minor": "bash ./scripts/release-auto.sh --bump minor",
+    "release:auto:major": "bash ./scripts/release-auto.sh --bump major"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",

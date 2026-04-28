@@ -21,7 +21,7 @@ import { DndContext, type DragEndEvent, type DragStartEvent, PointerSensor, useS
 import type { Cell, Row } from '@tanstack/react-table';
 import type { ReactNode } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { CRT_RowData, CRT_TableInstance } from '@chakra-react-table/core';
+import type { CRT_RowData, CRT_TableInstance } from './coreApi';
 import { Maximize2, Minimize2 } from 'lucide-react';
 import {
   ColumnControlsPanel,

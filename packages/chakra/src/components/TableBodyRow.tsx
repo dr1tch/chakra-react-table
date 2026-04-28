@@ -11,7 +11,7 @@ import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { flexRender } from '@tanstack/react-table';
 import type { Cell, Row } from '@tanstack/react-table';
 import type { ReactNode } from 'react';
-import type { CRT_RowData } from '@chakra-react-table/core';
+import type { CRT_RowData } from '../coreApi';
 import { ArrowDown, ArrowUp, ChevronDown, ChevronRight, GripVertical, Pin, PinOff } from 'lucide-react';
 import { CopyCellAction } from './CopyCellAction';
 import { getCellKey, isCellPrimitiveEditable, toCopyText } from './cellValue';

@@ -4,6 +4,6 @@ export {
   type CRT_RowData,
   type CRT_TableInstance,
   type CRT_TableOptions,
-} from '@chakra-react-table/core';
+} from './coreApi';
 
 export * from './ChakraReactTable';

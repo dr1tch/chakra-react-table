@@ -1,5 +1,5 @@
 import type { Cell } from '@tanstack/react-table';
-import type { CRT_RowData } from '@chakra-react-table/core';
+import type { CRT_RowData } from '../coreApi';
 
 export const toCopyText = (value: unknown): string | null => {
   if (value === null || value === undefined) return null;

@@ -1,5 +1,5 @@
 import type { Column } from '@tanstack/react-table';
-import type { CRT_RowData } from '@chakra-react-table/core';
+import type { CRT_RowData } from '../coreApi';
 
 export const getPinnedColumnStyles = <TData extends CRT_RowData>(
   column: Column<TData, unknown>,
