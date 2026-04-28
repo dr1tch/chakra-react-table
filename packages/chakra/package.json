@@ -1,5 +1,5 @@
 {
-  "name": "chakra-react-table",
+  "name": "chakra-ui-react-table",
   "version": "1.0.2",
   "type": "module",
   "main": "./dist/index.cjs",
