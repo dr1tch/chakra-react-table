@@ -7,7 +7,7 @@ import {
   type ChakraReactTableProps,
   type CRT_ColumnDef,
   type CRT_TableOptions,
-} from 'chakra-react-table';
+} from 'chakra-ui-react-table';
 import { Pencil, Trash2 } from 'lucide-react';
 
 type Person = {

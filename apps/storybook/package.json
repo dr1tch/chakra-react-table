@@ -14,7 +14,7 @@
     "@emotion/styled": "^11.14.1",
     "@faker-js/faker": "^10.1.0",
     "@tanstack/react-table": "^8.21.3",
-    "chakra-react-table": "workspace:*",
+    "chakra-ui-react-table": "workspace:*",
     "lucide-react": "^0.542.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"

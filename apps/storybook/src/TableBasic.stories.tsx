@@ -6,7 +6,7 @@ import {
   ChakraReactTable,
   useChakraReactTable,
   type CRT_ColumnDef,
-} from 'chakra-react-table';
+} from 'chakra-ui-react-table';
 
 type Person = { firstName: string; lastName: string; age: number };
 

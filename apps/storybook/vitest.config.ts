@@ -12,7 +12,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      'chakra-react-table': path.resolve(dirname, '../../packages/chakra/src/index.ts'),
+      'chakra-ui-react-table': path.resolve(dirname, '../../packages/chakra/src/index.ts'),
       '@chakra-react-table/core': path.resolve(dirname, '../../packages/core/src/index.ts'),
       '@chakra-react-table/icons': path.resolve(dirname, '../../packages/icons/src/index.tsx'),
     },
