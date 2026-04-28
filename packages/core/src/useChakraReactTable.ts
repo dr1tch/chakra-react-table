@@ -10,10 +10,12 @@ export const useChakraReactTable = <TData extends CRT_RowData>(
 ): CRT_TableInstance<TData> => {
   const {
     enableColumnFilters,
+    enableExpanding,
     enableGlobalFilter,
     enableGrouping,
     enablePagination,
     enableSorting,
+    getExpandedRowModel,
     getFilteredRowModel,
     getGroupedRowModel,
     getPaginationRowModel,
@@ -23,6 +25,7 @@ export const useChakraReactTable = <TData extends CRT_RowData>(
 
   const featureToggles: {
     enableColumnFilters?: boolean;
+    enableExpanding?: boolean;
     enableGlobalFilter?: boolean;
     enableGrouping?: boolean;
     enablePagination?: boolean;
@@ -33,6 +36,9 @@ export const useChakraReactTable = <TData extends CRT_RowData>(
   }
   if (enableGlobalFilter !== undefined) {
     featureToggles.enableGlobalFilter = enableGlobalFilter;
+  }
+  if (enableExpanding !== undefined) {
+    featureToggles.enableExpanding = enableExpanding;
   }
   if (enableGrouping !== undefined) {
     featureToggles.enableGrouping = enableGrouping;
@@ -45,6 +51,7 @@ export const useChakraReactTable = <TData extends CRT_RowData>(
   }
 
   const resolved = resolveRowModels<TData>(featureToggles);
+  const expandedModel = getExpandedRowModel ?? resolved.getExpandedRowModel;
   const filteredModel = getFilteredRowModel ?? resolved.getFilteredRowModel;
   const groupedModel = getGroupedRowModel ?? resolved.getGroupedRowModel;
   const paginationModel =
@@ -56,6 +63,7 @@ export const useChakraReactTable = <TData extends CRT_RowData>(
     columnResizeMode: options.columnResizeMode ?? 'onChange',
     ...rest,
     getCoreRowModel: getCoreRowModel(),
+    ...(expandedModel ? { getExpandedRowModel: expandedModel } : {}),
     ...(filteredModel ? { getFilteredRowModel: filteredModel } : {}),
     ...(groupedModel ? { getGroupedRowModel: groupedModel } : {}),
     ...(paginationModel ? { getPaginationRowModel: paginationModel } : {}),

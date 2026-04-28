@@ -16,6 +16,7 @@ type Person = {
   email: string;
   firstName: string;
   lastName: string;
+  subRows?: Person[];
 };
 
 export type FeaturePreset = {
@@ -32,42 +33,72 @@ export type FeatureStoryArgs = Partial<Omit<ChakraReactTableProps<Person>, 'tabl
 
 export const defaultFeatureStoryArgs: FeatureStoryArgs = {
   bordered: true,
-  captionSide: 'top',
+  density: 'compact',
   enableColumnActions: false,
+  enableColumnDragging: false,
   enableColumnOrderingControls: true,
   enableColumnResizing: false,
   enableColumnVisibilityToggle: true,
   enableCreating: false,
   enableEditing: false,
+  enableExpanding: false,
+  enableFullScreen: false,
   enableGlobalFilter: true,
   enablePagination: true,
+  enableVirtualization: false,
+  enableRowDragging: false,
+  enableRowOrderingControls: false,
+  enableRowPinning: false,
   enableRowSelection: false,
   interactive: true,
+  isLoading: false,
+  enableMemoizedRows: false,
+  layoutMode: 'auto',
+  loadingRowCount: 8,
+  loadingType: 'skeleton',
+  virtualizationHeight: 440,
+  virtualizationOverscan: 6,
+  virtualizationRowHeight: 44,
   pageSize: 8,
   rowCount: 40,
   seedOffset: 0,
   showColumnBorder: true,
   showColumnGroup: true,
   stickyHeader: true,
-  striped: true,
+  striped: false,
   tableVariant: 'outline',
 };
 
 export const featureStoryArgTypes = {
   bordered: { control: 'boolean' },
-  captionSide: { control: 'radio', options: ['top', 'bottom'] },
+  density: { control: 'radio', options: ['compact', 'comfortable', 'spacious'] },
   enableClickToCopy: { control: 'boolean' },
   enableColumnActions: { control: 'boolean' },
+  enableColumnDragging: { control: 'boolean' },
   enableColumnOrderingControls: { control: 'boolean' },
   enableColumnResizing: { control: 'boolean' },
   enableColumnVisibilityToggle: { control: 'boolean' },
   enableCreating: { control: 'boolean' },
   enableEditing: { control: 'boolean' },
+  enableExpanding: { control: 'boolean' },
+  enableFullScreen: { control: 'boolean' },
   enableGlobalFilter: { control: 'boolean' },
   enablePagination: { control: 'boolean' },
+  enableVirtualization: { control: 'boolean' },
+  enableRowDragging: { control: 'boolean' },
+  enableRowOrderingControls: { control: 'boolean' },
+  enableRowPinning: { control: 'boolean' },
   enableRowNumbers: { control: 'boolean' },
   enableRowSelection: { control: 'boolean' },
   interactive: { control: 'boolean' },
+  isLoading: { control: 'boolean' },
+  enableMemoizedRows: { control: 'boolean' },
+  layoutMode: { control: 'radio', options: ['auto', 'fixed'] },
+  loadingRowCount: { control: { max: 30, min: 1, step: 1, type: 'number' } },
+  loadingType: { control: 'radio', options: ['skeleton', 'overlay'] },
+  virtualizationHeight: { control: { max: 1000, min: 200, step: 20, type: 'number' } },
+  virtualizationOverscan: { control: { max: 30, min: 0, step: 1, type: 'number' } },
+  virtualizationRowHeight: { control: { max: 80, min: 24, step: 1, type: 'number' } },
   pageSize: { control: { max: 20, min: 3, step: 1, type: 'number' } },
   rowCount: { control: { max: 200, min: 10, step: 5, type: 'number' } },
   seedOffset: { control: { max: 99, min: 0, step: 1, type: 'number' } },
@@ -126,6 +157,29 @@ const makeData = (seed: number, count: number): Person[] => {
   }));
 };
 
+const makeTreeData = (seed: number, parentCount: number, childCount: number): Person[] => {
+  faker.seed(seed);
+  return Array.from({ length: parentCount }, () => {
+    const parent: Person = {
+      age: faker.number.int({ max: 90, min: 18 }),
+      city: faker.location.city(),
+      email: faker.internet.email(),
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
+    };
+
+    parent.subRows = Array.from({ length: childCount }, () => ({
+      age: faker.number.int({ max: 90, min: 18 }),
+      city: faker.location.city(),
+      email: faker.internet.email(),
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
+    }));
+
+    return parent;
+  });
+};
+
 const makeColumns = (): CRT_ColumnDef<Person>[] => [
   { accessorKey: 'firstName', header: 'First name' },
   { accessorKey: 'lastName', header: 'Last name' },
@@ -136,8 +190,39 @@ const makeColumns = (): CRT_ColumnDef<Person>[] => [
 
 export const featurePresets: Record<FeatureName, FeaturePreset> = {
   Aggregation: {
-    note: 'Grouped/Aggregation internals come from TanStack; dedicated aggregation UI is planned.',
-    tableOptions: { initialState: { grouping: ['city'] } },
+    rendererProps: { enableExpanding: true },
+    tableOptions: {
+      columns: [
+        { accessorKey: 'city', header: 'City' },
+        {
+          accessorKey: 'firstName',
+          aggregationFn: 'count',
+          aggregatedCell: ({ getValue }) => `${getValue<number>() ?? 0} people`,
+          header: 'People',
+        },
+        {
+          accessorKey: 'age',
+          aggregationFn: 'mean',
+          aggregatedCell: ({ getValue }) => {
+            const value = getValue<number>();
+            return `${Math.round(value ?? 0)} avg`;
+          },
+          header: 'Average age',
+        },
+        {
+          accessorKey: 'email',
+          aggregationFn: 'count',
+          aggregatedCell: ({ getValue }) => `${getValue<number>() ?? 0} emails`,
+          header: 'Email count',
+        },
+      ],
+      enableExpanding: true,
+      enableGrouping: true,
+      initialState: {
+        expanded: true,
+        grouping: ['city'],
+      },
+    },
   },
   CellActions: {
     rendererProps: {
@@ -158,7 +243,10 @@ export const featurePresets: Record<FeatureName, FeaturePreset> = {
     rendererProps: { enableColumnActions: true },
     tableOptions: { enableColumnPinning: true },
   },
-  ColumnDragging: { note: 'Drag handles are planned; up/down ordering controls are currently available.' },
+  ColumnDragging: {
+    rendererProps: { enableColumnDragging: true },
+    tableOptions: { enableColumnOrdering: true },
+  },
   ColumnGrouping: {
     tableOptions: {
       columns: [
@@ -196,14 +284,29 @@ export const featurePresets: Record<FeatureName, FeaturePreset> = {
     tableOptions: { enableColumnResizing: true },
   },
   Creating: { rendererProps: { enableCreating: true } },
-  DensePadding: { note: 'Density modes are planned; Chakra size/variant controls are available today.' },
-  DetailPanel: { note: 'Detail panels are planned in expansion slice.' },
+  DensePadding: {
+    rendererProps: { density: 'compact' },
+  },
+  DetailPanel: {
+    rendererProps: {
+      enableExpanding: true,
+      renderDetailPanel: (row) => (
+        <Box color="fg.muted" fontSize="sm" py="2">
+          Detail panel for {String(row.original.firstName)} {String(row.original.lastName)}
+        </Box>
+      ),
+    },
+    tableOptions: {
+      enableExpanding: true,
+      getRowCanExpand: () => true,
+    },
+  },
   Editing: { rendererProps: { enableEditing: true } },
   Filtering: {
     rendererProps: { enableGlobalFilter: true },
     tableOptions: { enableGlobalFilter: true },
   },
-  FullScreen: { note: 'Fullscreen mode is planned in toolbar/UX slice.' },
+  FullScreen: { rendererProps: { enableFullScreen: true } },
   HeaderGroups: {
     tableOptions: {
       columns: [
@@ -227,9 +330,20 @@ export const featurePresets: Record<FeatureName, FeaturePreset> = {
       ],
     },
   },
-  LayoutMode: { note: 'Alternative layout modes (grid/no-grow) are planned in layout slice.' },
-  Loading: { note: 'Loading overlays/skeletons are planned in UX slice.' },
-  Memo: { note: 'Memoization strategy options are planned in performance slice.' },
+  LayoutMode: {
+    rendererProps: { layoutMode: 'fixed' },
+  },
+  Loading: {
+    rendererProps: {
+      enablePagination: false,
+      isLoading: true,
+      loadingRowCount: 10,
+      loadingType: 'skeleton',
+    },
+  },
+  Memo: {
+    rendererProps: { enableMemoizedRows: true },
+  },
   Pagination: { rendererProps: { enablePagination: true } },
   RowActions: {
     rendererProps: {
@@ -251,10 +365,24 @@ export const featurePresets: Record<FeatureName, FeaturePreset> = {
       ),
     },
   },
-  RowDragging: { note: 'Row drag interactions are planned in DnD slice.' },
+  RowDragging: {
+    rendererProps: { enableRowDragging: true },
+  },
   RowNumbers: { rendererProps: { enableRowNumbers: true } },
-  RowOrdering: { note: 'Row ordering via drag is planned; column ordering controls are currently available.' },
-  RowPinning: { note: 'Row pinning is planned in pinning slice.' },
+  RowOrdering: {
+    rendererProps: { enableRowOrderingControls: true },
+  },
+  RowPinning: {
+    rendererProps: { enableRowPinning: true },
+    tableOptions: {
+      enableRowPinning: true,
+      initialState: {
+        rowPinning: {
+          top: ['0'],
+        },
+      },
+    },
+  },
   Search: { rendererProps: { enableGlobalFilter: true } },
   Selection: {
     rendererProps: {
@@ -266,7 +394,13 @@ export const featurePresets: Record<FeatureName, FeaturePreset> = {
     tableOptions: { enableRowSelection: true },
   },
   Sorting: { tableOptions: { enableSorting: true } },
-  SubRowTree: { note: 'Tree data/sub-rows are planned in expansion slice.' },
+  SubRowTree: {
+    rendererProps: { enableExpanding: true },
+    tableOptions: {
+      enableExpanding: true,
+      getSubRows: (row) => row.subRows,
+    },
+  },
   Toolbar: {
     rendererProps: {
       enableColumnOrderingControls: true,
@@ -275,7 +409,15 @@ export const featurePresets: Record<FeatureName, FeaturePreset> = {
     },
     tableOptions: { enableColumnOrdering: true },
   },
-  Virtualization: { note: 'Row/column virtualization will be introduced in performance slice.' },
+  Virtualization: {
+    rendererProps: {
+      enablePagination: false,
+      enableVirtualization: true,
+      virtualizationHeight: 440,
+      virtualizationOverscan: 8,
+      virtualizationRowHeight: 44,
+    },
+  },
 };
 
 export const FeatureStoryTable = ({
@@ -297,10 +439,18 @@ export const FeatureStoryTable = ({
     ...rendererOverrides
   } = resolvedStoryArgs;
   const seed = featureName.length * 17 + seedOffset;
-  const [data, setData] = useState<Person[]>(() => makeData(seed, rowCount));
+  const [data, setData] = useState<Person[]>(() =>
+    featureName === 'SubRowTree'
+      ? makeTreeData(seed, Math.max(8, Math.floor(rowCount / 2)), 3)
+      : makeData(seed, rowCount),
+  );
 
   useEffect(() => {
-    setData(makeData(seed, rowCount));
+    setData(
+      featureName === 'SubRowTree'
+        ? makeTreeData(seed, Math.max(8, Math.floor(rowCount / 2)), 3)
+        : makeData(seed, rowCount),
+    );
   }, [featureName, rowCount, seed]);
 
   const fallbackColumns = useMemo(() => makeColumns(), []);
@@ -322,6 +472,10 @@ export const FeatureStoryTable = ({
       rendererOverrides.enablePagination ??
       preset.tableOptions?.enablePagination ??
       true,
+    enableRowPinning:
+      rendererOverrides.enableRowPinning ??
+      preset.tableOptions?.enableRowPinning ??
+      false,
     enableRowSelection:
       rendererOverrides.enableRowSelection ??
       preset.tableOptions?.enableRowSelection ??
@@ -366,6 +520,23 @@ export const FeatureStoryTable = ({
     };
   }
 
+  if (featureName === 'RowOrdering' || featureName === 'RowDragging') {
+    dynamicRendererProps.enableRowDragging = featureName === 'RowDragging';
+    dynamicRendererProps.enableRowOrderingControls = featureName === 'RowOrdering';
+    dynamicRendererProps.onReorderRows = (sourceRow, targetRow) => {
+      setData((prev) => {
+        const sourceIndex = prev.findIndex((item) => item === sourceRow.original);
+        const targetIndex = prev.findIndex((item) => item === targetRow.original);
+        if (sourceIndex < 0 || targetIndex < 0 || sourceIndex === targetIndex) return prev;
+        const next = [...prev];
+        const [moved] = next.splice(sourceIndex, 1);
+        if (!moved) return prev;
+        next.splice(targetIndex, 0, moved);
+        return next;
+      });
+    };
+  }
+
   return (
     <Box>
       {preset.note ? (
@@ -374,7 +545,6 @@ export const FeatureStoryTable = ({
         </Text>
       ) : null}
       <ChakraReactTable
-        caption={`${featureName} example`}
         enableColumnOrderingControls
         enableColumnVisibilityToggle
         enableGlobalFilter

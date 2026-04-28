@@ -11,7 +11,10 @@ const FEATURE_NAME = 'FullScreen' as const;
 const meta: Meta<FeatureStoryArgs> = {
   title: 'Features/FullScreen',
   argTypes: featureStoryArgTypes,
-  args: defaultFeatureStoryArgs,
+  args: {
+    ...defaultFeatureStoryArgs,
+    enableFullScreen: true,
+  },
 };
 
 export default meta;

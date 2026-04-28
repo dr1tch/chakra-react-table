@@ -7,6 +7,7 @@ type CreateColumnField = {
 
 type CreateRowPanelProps = {
   columns: CreateColumnField[];
+  hideTrigger?: boolean;
   isOpen: boolean;
   onCancel: () => void;
   onOpen: () => void;
@@ -18,6 +19,7 @@ type CreateRowPanelProps = {
 
 export const CreateRowPanel = ({
   columns,
+  hideTrigger = false,
   isOpen,
   onCancel,
   onOpen,
@@ -27,7 +29,7 @@ export const CreateRowPanel = ({
   values,
 }: CreateRowPanelProps) => (
   <Box mb="3">
-    {!isOpen ? (
+    {!isOpen && !hideTrigger ? (
       <Button onClick={onOpen} size="sm" variant="solid">
         Add row
       </Button>

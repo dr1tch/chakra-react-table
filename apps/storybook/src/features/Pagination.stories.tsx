@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import {
   FeatureStoryTable,
   defaultFeatureStoryArgs,
@@ -20,4 +21,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: (args) => <FeatureStoryTable featureName={FEATURE_NAME} storyArgs={args} />,
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step('moves to next page', async () => {
+      const nextButton = canvas.getByLabelText('Next page');
+      await userEvent.click(nextButton);
+      await waitFor(() => {
+        expect(canvas.getByText(/Page 2 of/i)).toBeInTheDocument();
+      });
+    });
+  },
 };

@@ -17,6 +17,7 @@ export type CRT_TableState = TableState;
 export type CRT_FeatureToggles = {
   enableColumnOrdering?: boolean;
   enableColumnFilters?: boolean;
+  enableExpanding?: boolean;
   enableGlobalFilter?: boolean;
   enableGrouping?: boolean;
   enablePagination?: boolean;
@@ -26,6 +27,7 @@ export type CRT_FeatureToggles = {
 export type CRT_TableOptions<TData extends CRT_RowData> = Omit<
   TableOptions<TData>,
   | 'getCoreRowModel'
+  | 'getExpandedRowModel'
   | 'getFilteredRowModel'
   | 'getGroupedRowModel'
   | 'getPaginationRowModel'
@@ -34,6 +36,7 @@ export type CRT_TableOptions<TData extends CRT_RowData> = Omit<
   CRT_FeatureToggles & {
   columns: CRT_ColumnDef<TData, any>[];
   data: TData[];
+  getExpandedRowModel?: (table: Table<TData>) => () => RowModel<TData>;
   getFilteredRowModel?: (table: Table<TData>) => () => RowModel<TData>;
   getGroupedRowModel?: (table: Table<TData>) => () => RowModel<TData>;
   getPaginationRowModel?: (table: Table<TData>) => () => RowModel<TData>;

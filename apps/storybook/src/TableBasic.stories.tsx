@@ -50,7 +50,6 @@ const Example = () => {
 
   return (
     <ChakraReactTable
-      caption="Chakra React Table - grouped headers, sticky header, sticky columns, selection action bar"
       enableColumnOrderingControls
       enableColumnVisibilityToggle
       enableRowSelection

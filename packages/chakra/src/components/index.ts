@@ -3,6 +3,7 @@ export { ColumnActionMenu } from './ColumnActionMenu';
 export { ColumnResizeHandle } from './ColumnResizeHandle';
 export { CopyCellAction } from './CopyCellAction';
 export { CreateRowPanel } from './CreateRowPanel';
+export { columnDragId, columnDropId, moveItemToIndex, reorderById, rowDragId, rowDropId } from './dndUtils';
 export { getCellKey, isCellPrimitiveEditable, toCopyText } from './cellValue';
 export { getPinnedColumnStyles } from './pinningStyles';
 export { SelectionCheckbox } from './SelectionCheckbox';

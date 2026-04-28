@@ -19,5 +19,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
+  args: {
+    enablePagination: false,
+    enableVirtualization: true,
+    virtualizationHeight: 440,
+    virtualizationOverscan: 8,
+    virtualizationRowHeight: 44,
+    rowCount: 2000,
+  },
   render: (args) => <FeatureStoryTable featureName={FEATURE_NAME} storyArgs={args} />,
 };

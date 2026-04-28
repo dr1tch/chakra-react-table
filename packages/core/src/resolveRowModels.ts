@@ -1,4 +1,5 @@
 import {
+  getExpandedRowModel,
   getFilteredRowModel,
   getGroupedRowModel,
   getPaginationRowModel,
@@ -9,6 +10,7 @@ import type { CRT_FeatureToggles, CRT_RowData } from './types';
 const defaultToggles: Required<CRT_FeatureToggles> = {
   enableColumnOrdering: true,
   enableColumnFilters: true,
+  enableExpanding: true,
   enableGlobalFilter: true,
   enableGrouping: true,
   enablePagination: true,
@@ -25,6 +27,9 @@ export const resolveRowModels = <TData extends CRT_RowData>(
       merged.enableColumnFilters || merged.enableGlobalFilter
         ? getFilteredRowModel<TData>()
         : undefined,
+    getExpandedRowModel: merged.enableExpanding
+      ? getExpandedRowModel<TData>()
+      : undefined,
     getGroupedRowModel: merged.enableGrouping
       ? getGroupedRowModel<TData>()
       : undefined,

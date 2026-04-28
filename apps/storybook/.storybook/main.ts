@@ -5,8 +5,12 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.@(ts|tsx)'],
-  addons: [],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|tsx)'],
+  addons: [
+    '@storybook/addon-vitest',
+    '@storybook/addon-docs',
+    '@chromatic-com/storybook'
+  ],
   framework: {
     name: '@storybook/react-vite',
     options: {},

@@ -1,0 +1,58 @@
+import { Description, Meta, Subtitle, Title } from '@storybook/addon-docs/blocks';
+
+<Meta title="Get started" />
+
+<Title>Get started with Chakra React Table</Title>
+
+<Subtitle>Headless TanStack Table + Chakra UI component system</Subtitle>
+
+<Description>
+  Chakra React Table is a monorepo that provides a Chakra-first table implementation with rich features such as
+  sorting, filtering, pagination, pinning, resizing, selection, drag interactions, fullscreen mode, and Storybook-driven testing.
+</Description>
+
+## Install
+
+```sh
+pnpm add chakra-react-table @chakra-ui/react @tanstack/react-table
+```
+
+## Basic usage
+
+```tsx
+import { ChakraReactTable, useChakraReactTable } from 'chakra-react-table';
+
+const table = useChakraReactTable({
+  columns,
+  data,
+});
+
+export function Example() {
+  return <ChakraReactTable table={table} />;
+}
+```
+
+## Storybook workflow
+
+- Use the `Features/*` stories to validate behavior by capability.
+- Use the `Interactions` panel to run `play` tests per story.
+- Use the `Run tests` button (Testing widget) to execute all story tests.
+
+## Visual testing
+
+Visual tests are enabled through the Chromatic addon.
+
+```sh
+pnpm -C apps/storybook build-storybook
+```
+
+Then publish from CI or locally with your Chromatic project token.
+
+## Monorepo scripts
+
+```sh
+pnpm storybook
+pnpm -C apps/storybook test
+pnpm -C packages/chakra typecheck
+pnpm build:storybook
+```
